@@ -21,7 +21,7 @@ int main()
         for (int i = 0; i < m; i++)
         {
             cin >> b[i];
-            if (ans.find(b[i]) != ans.end())
+            if (ans.find(b[i]) != ans.end()) // tìm phần tử của b[i] bị trùng với a[i]
                 trung.insert(b[i]);
             ans.insert(b[i]);
         }
