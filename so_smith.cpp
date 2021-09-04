@@ -1,5 +1,15 @@
 #include <iostream>
+#include <math.h>
 using namespace std;
+bool snt(int n)
+{
+    if (n < 2)
+        return false;
+    for (int i = 2; i <= sqrt(n); i++)
+        if (n % i == 0)
+            return false;
+    return true;
+}
 int tongcs(int n)
 {
     int s = 0;
@@ -38,7 +48,7 @@ int main()
     {
         int n;
         cin >> n;
-        if (check(n))
+        if (check(n) && !snt(n))
             cout << "YES\n";
         else
             cout << "NO\n";
