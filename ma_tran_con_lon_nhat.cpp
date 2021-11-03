@@ -1,5 +1,5 @@
 #include <iostream>
-#include <set>
+#include <algorithm>
 using namespace std;
 void input(int a[][505], int n, int m)
 {
@@ -7,25 +7,29 @@ void input(int a[][505], int n, int m)
         for (int j = 0; j < m; j++)
             cin >> a[i][j];
 }
-bool check(int a[][505], int r, int c, int size)
+int MIN(int a, int b, int c)
 {
-    for (int i = r; i < r + size; i++)
-        for (int j = c; j < c + size; j++)
-            if (a[i][j] != 1)
-                return false;
-    return true;
+    return (a < b && a < c) ? a : ((b < c) ? b : c);
 }
-int solve(int a[][505], int n, int m)
+void solve(int a[][505], int n, int m)
 {
-    int size = (n < m) ? n : m;
-    int k = size + 1;
-    while (k--)
+    int dp[500][500] = {0}, MAX = -1;
+    for (int i = 0; i < n; i++)
     {
-        for (int i = 0; i <= n - k; i++)
-            for (int j = 0; j <= m - k; j++)
-                if (check(a, i, j, k))
-                    return k;
+        for (int j = 0; j < m; j++)
+        {
+            if (i * j == 0)
+                dp[i][j] = a[i][j];
+            else if (a[i][j] == 1 && a[i - 1][j] == 1 && a[i][j - 1] == 1 && a[i - 1][j - 1] == 1)
+            {
+                dp[i][j] = MIN(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]) + 1;
+                MAX = max(MAX, dp[i][j]);
+            }
+            else
+                dp[i][j] = a[i][j];
+        }
     }
+    cout << MAX << endl;
 }
 
 int main()
@@ -37,6 +41,6 @@ int main()
         int n, m, a[505][505] = {};
         cin >> n >> m;
         input(a, n, m);
-        cout << solve(a, n, m) << endl;
+        solve(a, n, m);
     }
 }
