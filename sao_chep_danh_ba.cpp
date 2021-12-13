@@ -1,76 +1,71 @@
-#include <iostream>
-#include <string.h>
-#include <vector>
-#include <algorithm>
-#include <sstream>
-#include <fstream>
+#include <bits/stdc++.h>
 using namespace std;
-typedef long long ll;
-typedef double db;
-const long long mod = 1e9 + 7;
-typedef struct
+struct Sotay
 {
-    string date, name, phone;
-    string last, dem, t[100];
-} danhba;
-bool can_swap(danhba a, danhba b)
-{
-    if (a.last < b.last)
-        return true;
-    if (a.last > b.last)
-        return false;
-    if (a.dem < b.dem)
-        return true;
-    return false;
-}
-void tach(danhba &p)
-{
-    stringstream ss(p.name);
-    int n = 0;
-    string token;
-    while (ss >> token)
+    string ngay;
+    string ho1, dem1, ten1;
+    string sdt;
+    void kt(string a, string b, string c, string d, string e)
     {
-        p.t[n++] = token;
+        ngay = a;
+        ho1 = b;
+        dem1 = c;
+        ten1 = d;
+        sdt = e;
     }
-    p.last = p.t[n - 1];
-    p.dem = p.t[n - 2];
-}
-int main()
+};
+vector<Sotay> x;
+bool kt(Sotay a, Sotay b)
 {
-    ifstream fp1("SOTAY.txt");
-    ofstream fp2("DIENTHOAI.txt");
-    string line, s;
-    string day[100];
-    int j = 0, i = 0;
-    danhba a[100];
-    bool check = false;
-    while (!fp1.eof())
+    if (a.ten1 == b.ten1)
+        return a.dem1 < b.dem1;
+    else
+        a.ten1 < b.ten1;
+}
+void solve()
+{
+    Sotay Tinh;
+    ifstream file;
+    file.open("SOTAY.txt");
+    string ngay2;
+    string ho, dem, ten;
+    string sodt;
+    string n;
+    while (file >> n)
     {
-        getline(fp1, line);
-        if (line.find("Ngay") != string::npos)
+        if (n == "Ngay")
         {
-            s = line;
+            file >> n;
+            ngay2 = n;
+            file >> ho;
+            file >> dem;
+            file >> ten;
+            file >> sodt;
+            Tinh.kt(ngay2, ho, dem, ten, sodt);
+            x.push_back(Tinh);
         }
         else
         {
-            a[i / 2].date = s;
-            if (i % 2 == 0)
-            {
-                a[i / 2].name = line;
-                tach(a[i / 2]);
-            }
-            if (i % 2 == 1)
-                a[i / 2].phone = line;
-
-            ++i;
+            ho = n;
+            file >> dem;
+            file >> ten;
+            file >> sodt;
+            Tinh.kt(ngay2, ho, dem, ten, sodt);
+            x.push_back(Tinh);
         }
     }
-    sort(a, a + i / 2 + 1, can_swap);
-    for (int k = 1; k <= i / 2; k++)
+    file.close();
+    ofstream file2;
+    file2.open("DIENTHOAI.txt");
+    sort(x.begin(), x.end(), kt);
+    for (int i = 0; i < x.size(); i++)
     {
-        fp2 << a[k].name << ": " << a[k].phone << " " << a[k].date << endl;
+        file2 << x[i].ho1 << " " << x[i].dem1 << " " << x[i].ten1 << ":"
+              << " " << x[i].sdt << " " << x[i].ngay << endl;
     }
-    fp1.close();
-    fp2.close();
-    return 0;
+    file2.close();
+}
+int main()
+{
+    solve();
 }

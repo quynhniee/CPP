@@ -1,30 +1,28 @@
 #include <stdio.h>
 #include <string.h>
-// ITPTIT - Mai la anh em
-int count = 0;
-int check(char *a, char *b)
-{
-    for (int i = 0; i < strlen(b); i++)
-    {
-        int size = strlen(a);
-        if (b[i] == a[0])
-        {
-            for (int j = 0; j < strlen(a); j++)
-            {
-                if (b[i + j] == a[j])
-                    size--;
-            }
-            if (size == 0)
-                count++;
-        }
-    }
-    return count;
-}
 int main()
 {
-    char a[1000], b[1000];
-    gets(a);
-    gets(b);
-    printf("%d", check(a, b));
+    char a[10005];
+    scanf("%s", &a);
+
+    if (strlen(a) > 5)
+    {
+        int vitri = 0;
+        for (int i = 0; i < strlen(a) - 4; i++)
+        {
+            if (a[vitri] <= a[i])
+            {
+                vitri = i;
+            }
+        }
+        for (int i = vitri; i < vitri + 5; i++)
+        {
+            if (a[vitri] != '0')
+            {
+                printf("%c", a[i]);
+            }
+        }
+    }
+
     return 0;
 }
