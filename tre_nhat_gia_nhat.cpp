@@ -1,4 +1,53 @@
 #include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <stack>
+using namespace std;
+typedef long long ll;
+typedef double db;
+const long long mod = 1e9 + 7;
+typedef struct {
+    string name, dob, compare;
+} in4;
+void solve_dob (in4 &a) {
+    stack<char> x;
+    for (int i=a.dob.size()-1; i>=-1; i--) {
+        if (a.dob[i] != '/' && i != -1) {
+            x.push(a.dob[i]);
+        }
+        else {
+            while (!x.empty()) {
+                a.compare += x.top();
+                x.pop();
+            }
+        }
+    }
+}
+bool can_swap (in4 &a, in4 &b) {
+    return a.compare > b.compare;
+}
+void solution () {
+    int t;
+    cin >> t;
+    vector<in4> a(t);
+    while (t--) {
+        scanf ("\n");
+        cin >> a[t].name >> a[t].dob;
+        solve_dob(a[t]);
+    }
+    sort (a.begin(), a.end(), can_swap);
+    cout << a[0].name << endl << a[a.size()-1].name << endl;
+}
+int main () {
+    solution();
+    return 0;
+}
+
+
+
+/*
+#include <iostream>
 #include <string.h>
 #include <algorithm>
 using namespace std;
@@ -37,3 +86,4 @@ int main()
     cout << a[0].name << endl
          << a[n - 1].name << endl;
 }
+*/

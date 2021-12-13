@@ -40,3 +40,23 @@ int main()
         solve(a, n);
     }
 }
+
+
+// cách này dễ hơn nhiều :((
+ /* 
+ void input () {
+    cin >> n;
+    for (int i=0; i<n; i++)
+        cin >> a[i];
+}
+void output () {
+    for (int i=0; i<n; i++)
+        cout << a[i] << " ";
+    cout << endl;
+}
+void solution () {
+    input();
+    prev_permutation(a, a+n);
+    output();
+}
+ */   
