@@ -18,7 +18,7 @@ int main()
             a[i] *= a[i];
         }
         sort(a, a + n);
-        int x1 = n - 1, x2 = x1 - 2, x3 = 0, check = 0;
+        int x1 = n - 1, x2 = x1 - 1, x3 = 0, check = 0;
         while (x2 != 0 && a[x1] != a[x2] + a[x3])
         {
             if (a[x2] + a[x3] < a[x1])
