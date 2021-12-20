@@ -3,37 +3,31 @@
 #include <math.h>
 #include <climits>
 #include <vector>
-#include <string.h>
 #include <algorithm>
-
+#include <iomanip>
+#include <utility>
 using namespace std;
 typedef long long ll;
 typedef double db;
-void solution () {
-    int count = 0;
-    string s1, s2;
-    cin >> s1 >> s2;
-    int minPos = s1.size(), maxPos = -1;
-    for (auto i : s2) {
-        if (s1.find(i) != string::npos) {
-            count++;
-            int pos = s1.find(i);
-            minPos = min (minPos, pos);
-            maxPos = max (maxPos, pos);
+const long long mod = 1e9 + 7;
+void solve () {
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for (auto &i:a) cin >> i;
+    int Max = -1;
+    for (int i=0; i<n-1; i++) {
+        for (int j=i+1; j<n; j++) {
+            if (a[j] > a[i])    Max = max (Max, a[j]-a[i]);
         }
     }
-    if (count < s2.size())  cout << "-1\n";
-    else {
-        for (int i = minPos; i <= maxPos; i++) 
-            cout << s1[i];
-        cout << endl;
-    }
+    cout << Max << endl;
 }
 int main () {
     int t;
     cin >> t;
     while (t--) {
-        solution();
+        solve();
     }
     return 0;
 }
