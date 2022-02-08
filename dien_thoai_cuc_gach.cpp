@@ -4,10 +4,11 @@
 using namespace std;
 bool thuannghich(string s)
 {
-    string s0 = s;
-    reverse(s.begin(), s.end());
-    return s0 == s;
+    for (int i=0; i<=s.size()/2; i++)
+        if (s[i] != s[s.size()-1-i])    return false;
+    return true;
 }
+
 int main()
 {
     int t;
